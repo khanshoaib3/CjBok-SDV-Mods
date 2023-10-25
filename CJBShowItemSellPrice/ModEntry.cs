@@ -63,6 +63,10 @@ namespace CJBShowItemSellPrice
             helper.Events.Display.RenderedActiveMenu += this.OnRenderedActiveMenu;
             helper.Events.Display.RenderedHud += this.OnRenderedHud;
             helper.Events.GameLoop.UpdateTicked += this.OnUpdateTicked;
+            helper.Events.GameLoop.GameLaunched += delegate
+            {
+                StardewAccessIntegration.TryLoad(helper);
+            };
         }
 
 
@@ -227,6 +231,13 @@ namespace CJBShowItemSellPrice
             {
                 Utility.drawTextWithShadow(spriteBatch, stackLabel, font, new Vector2(x + borderSize + padding, y + borderSize + padding + lineHeight), Game1.textColor);
                 Utility.drawTextWithShadow(spriteBatch, stackPrice, font, new Vector2(x + outerSize.X - borderSize - padding - coinSize - padding - stackPriceSize.X, y + borderSize + padding + lineHeight), Game1.textColor);
+            }
+
+            // speak text using stardew access
+            if (StardewAccessIntegration.IsLoaded())
+            {
+                string toSpeak = unitLabel + unitPrice + (showStack ? ("\n" + stackLabel + stackPrice) : "");
+                StardewAccessIntegration.SetMenuSuffixText(toSpeak);
             }
         }
 
