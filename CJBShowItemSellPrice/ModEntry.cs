@@ -236,7 +236,7 @@ namespace CJBShowItemSellPrice
             // speak text using stardew access
             if (StardewAccessIntegration.IsLoaded())
             {
-                string toSpeak = unitLabel + unitPrice + (showStack ? ("\n" + stackLabel + stackPrice) : "");
+                string toSpeak = "\n\n" + unitLabel + unitPrice + (showStack ? ("\n" + stackLabel + stackPrice) : "");
                 StardewAccessIntegration.SetMenuSuffixText(toSpeak);
             }
         }
